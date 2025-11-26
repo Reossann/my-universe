@@ -22,7 +22,22 @@
     transition: transform 0.3s ease;
 }
 
+@keyframes popText {
+    0% {
+    font-size: 1rem; /* 元のサイズ */
+  }
+  50% {
+    font-size: 2rem; /* 1.5倍に大きくなる */
+  }
+  100% {
+    font-size: 1rem; /* 元に戻る */
+  }
+}
+
 .card:hover{
     filter: brightness(1.3);
     transform: scale(1.05);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);}
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: popText 1s ease ;
+}
+
