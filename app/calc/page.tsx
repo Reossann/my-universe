@@ -19,10 +19,10 @@ export default function Calc(){
                 setResult(new_result)
                 return
             }
-        if ("=" === number){
+        // if ("=" === number){
 
-        }
-        if ("+" === number)
+        // }
+        // if ("+" === number)
         for (const i of numbersList){
             
             if (number === i){
