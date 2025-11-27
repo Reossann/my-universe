@@ -3,8 +3,8 @@ import styles from "./page.module.css";
 
 const apps = [
   { id: "todo", name: "Todo List", path: "/todo", description: "タスク管理アプリ", color:"#ffe4e1"},
-{id: "todo_kari", name: "電卓", path: "/calc", description: "計算アプリ", color:"blue"},
-{id: "todo_tigauyo", name: "Todo List", path: "/todos", description: "タスク管理アプリ", color:"#928501"},
+{id: "calc", name: "電卓", path: "/calc", description: "計算アプリ", color:"blue"},
+{id: "pachinco", name: "パチンコ確率機", path: "/pachinco", description: "パチンコ確率アプリ", color:"red"},
 ]
 
 
