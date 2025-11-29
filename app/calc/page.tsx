@@ -10,19 +10,30 @@ import { useRouter } from 'next/navigation'; // ← 1. 追加！
 
 export default function Calc(){
 
-    const numbersList = ["1","2","3","4","5","6","7","8","9","CRE","0","="];
+    const numbersList = ["1","2","3","+","4","5","6","-","7","8","9","×","C","0","=","÷"];
+    const operator = ["+","-","×","÷"]
     const [result, setResult] = useState<string>("")
     const handlePrint = (number: string) => {
         let new_result = structuredClone(result);
-        if ("CRE" === number){
+        if ("C" === number){
                 new_result = ""
                 setResult(new_result)
                 return
             }
-        // if ("=" === number){
+        if ("=" === number){
+            const new_result_num = Number(new_result);
+            console.log(new_result_num)
+            setResult(String(new_result_num))
+            return
+        }
+        for (const x of operator){
+            if (x === number){
+                new_result += number
+                setResult(new_result)
+                return
+            }
 
-        // }
-        // if ("+" === number)
+        }
         for (const i of numbersList){
             
             if (number === i){
@@ -59,7 +70,7 @@ export default function Calc(){
             <div className='
             grid        
             justify-center 
-            grid-cols-3
+            grid-cols-4
             gap-2
             '>
             {numbersList.map((numbers) => (
