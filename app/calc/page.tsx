@@ -21,13 +21,30 @@ export default function Calc(){
                 return
             }
         if ("=" === number){
-            const new_result_num = Number(new_result);
-            console.log(new_result_num)
-            setResult(String(new_result_num))
-            return
+            try{
+            const calcResult = new Function("return " + new_result)();
+            setResult(String(calcResult))
+            
+        }catch(error){
+            setResult("Error"); 
+            console.error(error);
+        }return;
+
+            
         }
         for (const x of operator){
             if (x === number){
+                if (x === "×"){
+                    new_result += "*"
+                    setResult(new_result)
+                    return
+                }
+                if (x === "÷"){
+                    new_result += "/"
+                    setResult(new_result)
+                    return
+                }
+
                 new_result += number
                 setResult(new_result)
                 return
