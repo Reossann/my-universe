@@ -11,71 +11,45 @@ import { useRouter } from 'next/navigation'; // ← 1. 追加！
 export default function Calc(){
 
     const numbersList = ["C", "÷", "×", "B", "7", "8", "9", "-", "4", "5", "6", "+", "1", "2", "3", "=", "0", "00", "."];
-    const operator = ["+","-","×","÷"]
     const [result, setResult] = useState<string>("")
-    const handlePrint = (number: string) => {
-        let new_result = structuredClone(result);
-        if ("B" === number){
-            setResult(new_result.slice(0, -1));
-            return
-        }
-        if ("C" === number){
-                new_result = ""
-                setResult(new_result)
-                return
-            }
-        if ("=" === number){
-            try{
-            const calcResult = new Function("return " + new_result)();
-            setResult(String(calcResult))
-            
-        }catch(error){
-            setResult("Error"); 
-            console.error(error);
-        }return;
-
-            
-        }
-        for (const x of operator){
-            if (x === number){
-                if (x === "×"){
-                    new_result += "*"
-                    setResult(new_result)
-                    return
-                }
-                if (x === "÷"){
-                    new_result += "/"
-                    setResult(new_result)
-                    return
-                }
-
-                new_result += number
-                setResult(new_result)
-                return
-            }
-
-        }
-        for (const i of numbersList){
-            
-            if (number === i){
-                new_result += number
-                setResult(new_result)
-                return
-            }
-            
-        }
-
-        
-        
+    const [calc, setCalc] = useState<string>("")
+    const handlePrint = (btn: string) => {
+    // 1. バックスペース (B)
+    if (btn === "B") {
+      setCalc(calc.slice(0, -1));
+      return;
     }
 
+    // 2. クリア (C)
+    if (btn === "C") {
+      setCalc("");
+      return;
+    }
+
+    // 3. 計算実行 (=)
+    if (btn === "=") {
+      try {
+        // ★ここで初めて「×」を「*」に変換する（画面はずっと「×」のまま！）
+        const formula = calc.replaceAll("×", "*").replaceAll("÷", "/");
+        const calcResult = new Function("return " + formula)();
+        setResult(String(calcResult));
+      } catch (error) {
+        setResult("Error");
+      }
+      return;
+    }
+
+    // 4. それ以外（数字や演算子）
+    // ループしなくても、ただくっつければOK！
+    setCalc(calc + btn);
+  };
 
 
     return(
         <main className="
         min-h-screen 
         p-8 
-        bg-gray-50 center
+        bg-gray-50
         min-h-screen 
          ">
             <div className="mb-8">
@@ -84,7 +58,12 @@ export default function Calc(){
                 </Link>
             </div>
             <h1 
-            className='text-5xl center bg-blue-500 px-4 py-2'
+            className='text-5xl bg-blue-500 px-4 py-2'
+            >
+                {calc}
+            </h1>
+            <h1 
+            className='text-5xl bg-red-500 px-4 py-2'
             >
                 {result}
             </h1>
