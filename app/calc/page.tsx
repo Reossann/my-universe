@@ -23,6 +23,7 @@ export default function Calc(){
     // 2. クリア (C)
     if (btn === "C") {
       setCalc("");
+      setResult("")
       return;
     }
 
