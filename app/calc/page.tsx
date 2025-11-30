@@ -10,11 +10,15 @@ import { useRouter } from 'next/navigation'; // ← 1. 追加！
 
 export default function Calc(){
 
-    const numbersList = ["1","2","3","+","4","5","6","-","7","8","9","×","C","0","=","÷"];
+    const numbersList = ["C", "÷", "×", "B", "7", "8", "9", "-", "4", "5", "6", "+", "1", "2", "3", "=", "0", "00", "."];
     const operator = ["+","-","×","÷"]
     const [result, setResult] = useState<string>("")
     const handlePrint = (number: string) => {
         let new_result = structuredClone(result);
+        if ("B" === number){
+            setResult(new_result.slice(0, -1));
+            return
+        }
         if ("C" === number){
                 new_result = ""
                 setResult(new_result)
