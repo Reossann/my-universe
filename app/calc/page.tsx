@@ -47,7 +47,18 @@ export default function Calc(){
 
 
     return(
-        <main className="
+        <main 
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Backspace"){
+            handlePrint("B")
+          }if(e.key === "Delete"){
+            handlePrint("C")
+          }if(numbersList.includes(e.key)){
+            handlePrint(e.key)
+          }
+        }}
+        className="
         min-h-screen 
         p-8 
         bg-gray-50
