@@ -120,7 +120,7 @@ export default function Calc() {
             onClick={() => handlePrint(btn)}
             className={`
               h-20 text-3xl font-bold rounded-2xl transition active:scale-95 shadow-md
-              ${btn === "=" ? "bg-orange-500 hover:bg-orange-400 text-white" : ""}
+              ${btn === "=" ? "bg-orange-500 hover:bg-orange-400 " : ""}
               ${["C", "B", "÷", "×", "-", "+"].includes(btn) ? "bg-gray-300 text-black hover:bg-gray-200" : "bg-white text-gray-800 hover:bg-gray-50"}
               ${btn === "0" ? "col-span-2" : ""} 
             `}
