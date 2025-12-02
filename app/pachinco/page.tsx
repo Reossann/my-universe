@@ -2,10 +2,21 @@
 
 import Link from 'next/link'; // 忘れずに！
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // ← 1. 追加！
+import "random";
 
 
 export default function P(){
+    const [counter, setCounter] = useState<number>(0);
+    const handleLack = () => {
+        setCounter(counter + 1)
+        const randomNumber = Math.random()
+        if (0.09 < randomNumber ){
+            
+        }
+    }
+
+
+
    return( <main>
         <div className="mb-8">
                 <Link href="/" className="text-blue-500 hover:underline text-2xl">
