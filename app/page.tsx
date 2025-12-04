@@ -12,7 +12,9 @@ const apps = [
 export default function Home() {
   return (
     <main>
-      <h1 className={styles.title}>My universe</h1>
+      <h1 className={styles.title}>
+        <div className={styles.Text}>My universe</div>
+        </h1>
 
       <div className={styles.container}>
         {apps.map((app) => (

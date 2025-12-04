@@ -1,8 +1,19 @@
 .title{
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    color:#333
+  display:flex;
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  justify-content: center;
+    
+}
+
+.Text{
+  
+  align-self: start;
+  animation: gaming 1s infinite;
+  font-size: 5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color:#333;
 }
 
 .container{
@@ -31,6 +42,33 @@
   }
   100% {
     font-size: 1rem; /* 元に戻る */
+  }
+}
+
+@keyframes gaming {
+  0%{
+    color: red;
+    transform: scale(1);
+  }
+  15%{
+    color: orange;
+  }
+  30%{
+    color: yellow;
+  }
+  50%{
+    color: green;
+    transform: scale(1.25);
+  }
+  65%{
+    color: blue;
+  }
+  80%{
+    color: indigo;
+  }
+  100%{
+    color: violet;
+    transform: scale(1);
   }
 }
 

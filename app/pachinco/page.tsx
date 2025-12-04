@@ -23,10 +23,12 @@ export default function P(){
 
 
    return( <main 
+    className='min-h-screen'
     tabIndex={0}
     onKeyDown={(e) =>{
             if(e.key === "Enter")handleLack()
-        }}>
+        }}
+    >
         <div className="mb-8">
                 <Link href="/" className="text-blue-500 hover:underline text-2xl">
           ← ホームに戻る
