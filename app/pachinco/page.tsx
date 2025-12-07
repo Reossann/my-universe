@@ -1,12 +1,13 @@
 "use client";
 
 import Link from 'next/link'; // 忘れずに！
-import { useState } from 'react';
+import {  useState } from 'react';
 
 
 export default function P(){
     const [counter, setCounter] = useState<number>(0);
     const [result,setResult] = useState<string>("Yeear!!");
+    const [random_variable, setRandom_varianle] = useState<number>(0);
     const handleLack = () => {
         if (result === "Yes!!!")return
         setCounter(counter + 1)
