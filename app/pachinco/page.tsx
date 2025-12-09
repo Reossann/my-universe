@@ -12,6 +12,13 @@ export default function P(){
     const [totalSpent, setTotalSpent] = useState<number>(0);
     const [costPerSpin, setCostPerSpin] = useState<number>(50);
 
+    const reset = () => {
+        setCounter(0);
+        setResult("Yeear!!");
+        setRandomVariable(0);
+        setTotalSpent(0);
+    }
+
     const sleep = (time:number) => {
         return new Promise((resolve) => {
             setTimeout(()=> {
@@ -54,6 +61,9 @@ export default function P(){
                 <Link href="/" className="text-blue-500 hover:underline text-2xl">
           ← ホームに戻る
                 </Link>
+                <button onClick={() => reset()}>
+                    リセット
+                </button>
                 <div> 
                     設定[]
                 </div>
