@@ -145,8 +145,8 @@ export default function P(){
             if(e.key === "r")reset()
         }}
     >
-            <div className="flex mb-8 flex-row justify-around border-4">
-                <Link href="/" className="text-blue-500 hover:underline text-2xl">
+            <div className="flex mb-8 flex-row justify-around border-4 text-4xl">
+                <Link href="/" className="text-blue-500 hover:underline ">
           ← ホームに戻る
                 </Link>
                 <button onClick={() => reset()}>
@@ -184,7 +184,7 @@ export default function P(){
         onClick={() => handleLack_10()}
         >おせ！！！(１０回転)</button>
         <button 
-        className='bg-red border-4 border-red-500   rounded-xl' 
+        className='bg-red border-4 border-red-500 y  rounded-xl' 
         onClick={() => handleLack_100()}
         >おせ！！！(１００回転)</button>
             </div>
