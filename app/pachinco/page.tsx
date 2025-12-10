@@ -11,6 +11,8 @@ export default function P(){
     const [randomVariable, setRandomVariable] = useState<number>(0);
     const [totalSpent, setTotalSpent] = useState<number>(0);
     const [costPerSpin, setCostPerSpin] = useState<number>(50);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [probability, setProbability] = useState(99);
 
     const counterRef = useRef(0);
     const totalSpentRef = useRef(0);
@@ -41,11 +43,11 @@ export default function P(){
         if (result === "Yes!!!")return
         setCounter((prev) => prev + 1)
         setTotalSpent((prev) => prev + costPerSpin)
-        setRandomVariable((1 - (1/99.9)) ** (counter + 1))
+        setRandomVariable((1 - (1/probability)) ** (counter + 1))
         console.log(counter)
         const randomNumber = Math.random()
         console.log(randomNumber)
-        if (randomNumber < 1/99.9){
+        if (randomNumber < 1/probability){
             setResult("Yes!!!")
         }else{
             setResult("No!!!")
@@ -73,12 +75,12 @@ export default function P(){
             // 3. 計算結果を画面（State）に反映させて、ユーザーに見せる
             setCounter(counterRef.current);
             setTotalSpent(totalSpentRef.current);
-            setRandomVariable((1 - (1 / 99.9)) ** counterRef.current);
+            setRandomVariable((1 - (1 / probability)) ** counterRef.current);
 
             // 抽選ロジック
             const randomNumber = Math.random();
 
-            if (randomNumber < 1 / 99.9) {
+            if (randomNumber < 1 / probability) {
                 // 当たり！
                 setResult("Yes!!!");
                 resultRef.current = "Yes!!!"; // ★重要：Refも更新して、次のループの冒頭で気づけるようにする
@@ -113,12 +115,12 @@ export default function P(){
             // 3. 計算結果を画面（State）に反映させて、ユーザーに見せる
             setCounter(counterRef.current);
             setTotalSpent(totalSpentRef.current);
-            setRandomVariable((1 - (1 / 99.9)) ** counterRef.current);
+            setRandomVariable((1 - (1 / probability)) ** counterRef.current);
 
             // 抽選ロジック
             const randomNumber = Math.random();
 
-            if (randomNumber < 1 / 99.9) {
+            if (randomNumber < 1 / probability) {
                 // 当たり！
                 setResult("Yes!!!");
                 resultRef.current = "Yes!!!"; // ★重要：Refも更新して、次のループの冒頭で気づけるようにする
@@ -133,7 +135,8 @@ export default function P(){
     }
 
 
-   return( <main 
+   return( 
+   <main 
     className='flex flex-col h-screen bg-slate-900 text-white p-4 justify-around'
     tabIndex={0}
     onKeyDown={(e) =>{
@@ -149,9 +152,9 @@ export default function P(){
                 <button onClick={() => reset()}>
                     リセット
                 </button>
-                <div> 
-                    設定[]
-                </div>
+                <button onClick={() => setIsSettingsOpen(true)}> 
+                    設定[1/{probability}]
+                </button>
             </div>
             <div className='flex mb-8 flex-row justify-around border-4 text-4xl'>
                 <div>
@@ -173,19 +176,79 @@ export default function P(){
             </div>
             <div className='flex justify-around text-4xl'>
                 <button 
-        className='bg-red border-4 border-gray-800 ' 
+        className='bg-red border-4 border-red-500  rounded-xl' 
         onClick={() => handleLack()}
         >おせ！！！</button>
         <button 
-        className='bg-red border-4 border-gray-800 ' 
+        className='bg-red border-4 border-red-500  rounded-xl' 
         onClick={() => handleLack_10()}
         >おせ！！！(１０回転)</button>
         <button 
-        className='bg-red border-4 border-gray-800 ' 
+        className='bg-red border-4 border-red-500   rounded-xl' 
         onClick={() => handleLack_100()}
         >おせ！！！(１００回転)</button>
             </div>
         
+        {/* isSettingsOpen が true の時だけ表示されるエリア */}
+{isSettingsOpen && (
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+        <div className="bg-slate-800 p-8 rounded-xl border-4 border-blue-500 shadow-2xl w-96">
+            <h2 className="text-2xl font-bold mb-6 text-center border-b pb-2">⚙️ 設定変更</h2>
+            
+            {/* 確率設定セクション */}
+            <div className="mb-6">
+                <p className="mb-2 font-bold text-blue-300">大当たり確率</p>
+                <div className="flex justify-between gap-2">
+                    <button 
+                        onClick={() => setProbability(99)}
+                        className={`flex-1 py-2 rounded ${probability === 99 ? 'bg-red-500 ring-2 ring-white' : 'bg-gray-600'}`}
+                    >
+                        1/99<br/><span className="text-xs">甘デジ</span>
+                    </button>
+                    <button 
+                        onClick={() => setProbability(319)}
+                        className={`flex-1 py-2 rounded ${probability === 319 ? 'bg-red-500 ring-2 ring-white' : 'bg-gray-600'}`}
+                    >
+                        1/319<br/><span className="text-xs">ミドル</span>
+                    </button>
+                    <button 
+                        onClick={() => setProbability(2)}
+                        className={`flex-1 py-2 rounded ${probability === 2 ? 'bg-red-500 ring-2 ring-white' : 'bg-gray-600'}`}
+                    >
+                        1/2<br/><span className="text-xs">神</span>
+                    </button>
+                </div>
+            </div>
+
+            {/* レート設定セクション */}
+            <div className="mb-8">
+                <p className="mb-2 font-bold text-yellow-300">1回転のコスト</p>
+                <div className="flex justify-between gap-2">
+                     <button 
+                        onClick={() => setCostPerSpin(50)}
+                        className={`flex-1 py-2 rounded ${costPerSpin === 50 ? 'bg-yellow-600 ring-2 ring-white' : 'bg-gray-600'}`}
+                    >
+                        50円
+                    </button>
+                    <button 
+                        onClick={() => setCostPerSpin(100)}
+                        className={`flex-1 py-2 rounded ${costPerSpin === 100 ? 'bg-yellow-600 ring-2 ring-white' : 'bg-gray-600'}`}
+                    >
+                        100円
+                    </button>
+                </div>
+            </div>
+
+            {/* 閉じるボタン */}
+            <button 
+                onClick={() => setIsSettingsOpen(false)}
+                className="w-full py-3 bg-gray-500 hover:bg-gray-400 rounded-lg font-bold transition"
+            >
+                設定を閉じる
+            </button>
+        </div>
+    </div>
+)}
     </main>
    )
 }
