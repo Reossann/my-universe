@@ -1,13 +1,12 @@
 "use client";
 
 import Link from 'next/link'; // 忘れずに！
-import { resolve } from 'path';
 import {  useRef,useState } from 'react';
 
 
 export default function P(){
     const [counter, setCounter] = useState<number>(0);
-    const [result,setResult] = useState<string>("Yeear!!");
+    const [result,setResult] = useState<string>("Ready?");
     const [randomVariable, setRandomVariable] = useState<number>(0);
     const [totalSpent, setTotalSpent] = useState<number>(0);
     const [costPerSpin, setCostPerSpin] = useState<number>(50);
@@ -16,19 +15,19 @@ export default function P(){
 
     const counterRef = useRef(0);
     const totalSpentRef = useRef(0);
-    const resultRef = useRef("Yeear!!");
+    const resultRef = useRef("Ready?");
 
     
 
     const reset = () => {
         setCounter(0);
-        setResult("Yeear!!");
+        setResult("Ready?");
         setRandomVariable(0);
         setTotalSpent(0);
 
         counterRef.current = 0;
         totalSpentRef.current = 0;
-        resultRef.current = "Yeear!!";
+        resultRef.current = "Ready?";
     }
 
     const sleep = (time:number) => {
@@ -39,68 +38,14 @@ export default function P(){
         });
     };
 
-    const handleLack = () => {
-        if (result === "Yes!!!")return
-        setCounter((prev) => prev + 1)
-        setTotalSpent((prev) => prev + costPerSpin)
-        setRandomVariable((1 - (1/probability)) ** (counter + 1))
-        console.log(counter)
-        const randomNumber = Math.random()
-        console.log(randomNumber)
-        if (randomNumber < 1/probability){
-            setResult("Yes!!!")
-        }else{
-            setResult("No!!!")
-        }
-    }
 
-    const handleLack_10 = async () => {
+    const handleSpin = async (times:number) => {
         // 1. スタート時の同期：現在の画面の値を、計算用のRefにセットする
         counterRef.current = counter;
         totalSpentRef.current = totalSpent;
         resultRef.current = result;
 
-        for (let i = 0; i < 10; i++) {
-            // もし「当たり」が出ていたら、ループを止める
-            if (resultRef.current === "Yes!!!") {
-                console.log("当たり済みなのでストップ");
-                break;
-            }
-
-            // 2. 計算はすべて「Ref（.current）」を使って行う！
-            // (Stateを使うと、古い値のまま計算してしまうため)
-            counterRef.current = counterRef.current + 1;
-            totalSpentRef.current = totalSpentRef.current + costPerSpin;
-
-            // 3. 計算結果を画面（State）に反映させて、ユーザーに見せる
-            setCounter(counterRef.current);
-            setTotalSpent(totalSpentRef.current);
-            setRandomVariable((1 - (1 / probability)) ** counterRef.current);
-
-            // 抽選ロジック
-            const randomNumber = Math.random();
-
-            if (randomNumber < 1 / probability) {
-                // 当たり！
-                setResult("Yes!!!");
-                resultRef.current = "Yes!!!"; // ★重要：Refも更新して、次のループの冒頭で気づけるようにする
-            } else {
-                setResult("No!!!");
-                // Refのresultは変えなくてOK（ハズレのままなので）
-            }
-
-            // 4. 次の回転まで少し待つ（演出）
-            await sleep(50); 
-        }
-    }
-
-    const handleLack_100 = async () => {
-        // 1. スタート時の同期：現在の画面の値を、計算用のRefにセットする
-        counterRef.current = counter;
-        totalSpentRef.current = totalSpent;
-        resultRef.current = result;
-
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < times; i++) {
             // もし「当たり」が出ていたら、ループを止める
             if (resultRef.current === "Yes!!!") {
                 console.log("当たり済みなのでストップ");
@@ -141,7 +86,7 @@ export default function P(){
     tabIndex={0}
     onKeyDown={(e) =>{
         console.log(e.key)
-            if(e.key === "Enter")handleLack()
+            if(e.key === "Enter")handleSpin(1)
             if(e.key === "r")reset()
         }}
     >
@@ -166,7 +111,7 @@ export default function P(){
                     [{totalSpent}]
                 </div>
                 <div>
-                    はまり確立
+                    はまり確率
                     [{randomVariable.toFixed(6)}]
                 </div>
             </div>
@@ -177,15 +122,15 @@ export default function P(){
             <div className='flex justify-around text-4xl'>
                 <button 
         className='bg-red border-4 border-red-500  rounded-xl' 
-        onClick={() => handleLack()}
+        onClick={() => handleSpin(1)}
         >おせ！！！</button>
         <button 
         className='bg-red border-4 border-red-500  rounded-xl' 
-        onClick={() => handleLack_10()}
+        onClick={() => handleSpin(10)}
         >おせ！！！(１０回転)</button>
         <button 
         className='bg-red border-4 border-red-500 y  rounded-xl' 
-        onClick={() => handleLack_100()}
+        onClick={() => handleSpin(100)}
         >おせ！！！(１００回転)</button>
             </div>
         
