@@ -6,6 +6,7 @@ const apps = [
 {id: "calc", name: "電卓", path: "/calc", description: "計算アプリ", color:"blue"},
 {id: "pachinco", name: "パチンコ確率機", path: "/pachinco", description: "パチンコ確率アプリ", color:"red"},
 {id: "SG", name: "ソシャゲの面白いところだけを集めたい", path: "/sg", description: "ソシャゲ濃縮アプリ", color:"green"},
+{id: "VS", name: "ヴァンサバみたいなの作りたい", path: "/vs", description: "ヴァンパイアサバイバーもどき", color:"green"},
 ]
 
 
