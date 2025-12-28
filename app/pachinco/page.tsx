@@ -90,6 +90,9 @@ export default function P(){
             if(e.key === "r")reset()
         }}
     >
+        <div className="flex mb-8 flex-row justify-around border-4 text-4xl">
+            <div>version1.0</div>
+        </div>
             <div className="flex mb-8 flex-row justify-around border-4 text-4xl">
                 <Link href="/" className="text-blue-500 hover:underline ">
           ← ホームに戻る
