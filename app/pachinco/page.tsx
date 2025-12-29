@@ -12,6 +12,7 @@ export default function P(){
     const [costPerSpin, setCostPerSpin] = useState<number>(50);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [probability, setProbability] = useState(99);
+    const [version, setVersion] = useState<'classic' | 'cyber'>('cyber');
 
     const counterRef = useRef(0);
     const totalSpentRef = useRef(0);
@@ -90,6 +91,29 @@ export default function P(){
             if(e.key === "r")reset()
         }}
     >
+        {/* 切り替えボタン */}
+       <div className="fixed top-0 right-0 p-4 z-50">
+         <button onClick={() => setVersion('classic')}>レトロ</button>
+         <button onClick={() => setVersion('cyber')}>サイバー</button>
+       </div>
+
+       {/* ★ここで条件分岐して表示するコンポーネントを変える */}
+       {version === 'classic' ? (
+         <ClassicView 
+            counter={counter} 
+            totalSpent={totalSpent} 
+            result={result}
+            handleSpin={handleSpin}
+            /* 必要なデータを全部渡す */
+         />
+       ) : (
+         <CyberView 
+            counter={counter} 
+            totalSpent={totalSpent} 
+            result={result}
+            handleSpin={handleSpin}
+         />
+       )}
         <div className="flex mb-8 flex-row justify-around border-4 text-4xl">
             <div>version1.0</div>
         </div>
@@ -200,3 +224,35 @@ export default function P(){
     </main>
    )
 }
+
+
+// 必要なデータを受け取るための「型」を定義
+type ViewProps = {
+  counter: number;
+  totalSpent: number;
+  result: string;
+  handleSpin: (times: number) => void; // 関数も渡せる！
+  // ...ほかにも必要なものを書く
+};
+
+// ▼ バージョン1：クラシックな見た目
+const ClassicView = (props: ViewProps) => {
+  return (
+    <div className="bg-white text-black ...">
+       {/* props.counter のように使う */}
+       <div>回転数: {props.counter}</div>
+       <button onClick={() => props.handleSpin(1)}>PUSH</button>
+    </div>
+  );
+};
+
+// ▼ バージョン2：サイバーな見た目
+const CyberView = (props: ViewProps) => {
+  return (
+    <div className="bg-black text-cyan-400 font-mono ...">
+       {/* デザインが違うだけ！中身のデータは同じ */}
+       <div className="shadow-glow">SPIN_COUNT: {props.counter}</div>
+       <button onClick={() => props.handleSpin(10)}>AUTO SPIN</button>
+    </div>
+  );
+};
