@@ -20,6 +20,8 @@ export default function P(){
 
     
 
+    
+
     const reset = () => {
         setCounter(0);
         setResult("Ready?");
@@ -91,31 +93,9 @@ export default function P(){
             if(e.key === "r")reset()
         }}
     >
-        {/* 切り替えボタン */}
-       <div className="fixed top-0 right-0 p-4 z-50">
-         <button onClick={() => setVersion('classic')}>レトロ</button>
-         <button onClick={() => setVersion('cyber')}>サイバー</button>
-       </div>
 
-       {/* ★ここで条件分岐して表示するコンポーネントを変える */}
-       {version === 'classic' ? (
-         <ClassicView 
-            counter={counter} 
-            totalSpent={totalSpent} 
-            result={result}
-            handleSpin={handleSpin}
-            /* 必要なデータを全部渡す */
-         />
-       ) : (
-         <CyberView 
-            counter={counter} 
-            totalSpent={totalSpent} 
-            result={result}
-            handleSpin={handleSpin}
-         />
-       )}
         <div className="flex mb-8 flex-row justify-around border-4 text-4xl">
-            <div>version1.0</div>
+            <Link href="pachinco/v2"> v2 </Link>
         </div>
             <div className="flex mb-8 flex-row justify-around border-4 text-4xl">
                 <Link href="/" className="text-blue-500 hover:underline ">
@@ -256,3 +236,4 @@ const CyberView = (props: ViewProps) => {
     </div>
   );
 };
+
