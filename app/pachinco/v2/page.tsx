@@ -94,6 +94,10 @@ const CyberView = (props: PachinkoViewProps) => {
              <span className="text-2xl font-bold text-yellow-100">TURBO</span>
              <span className="text-xs text-yellow-500">100 SPIN</span>
           </button>
+          <button onClick={() => props.setIsSettingsOpen(true)} className="group w-32 h-32 rounded-full bg-slate-800 border-4 border-red-500/30 shadow-[0_0_20px_rgba(234,1,99,0.2)] active:scale-95 transition-all hover:border-yellow-400 hover:shadow-[0_0_30px_rgba(234,179,8,0.5)] flex flex-col items-center justify-center">
+             <span className="text-2xl font-bold text-yellow-100">SETTINGS</span>
+             <span className="text-xs text-yellow-500">DETAIL</span>
+          </button>
         </div>
       </div>
 
