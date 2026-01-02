@@ -13,7 +13,7 @@ export default function P(){
                 </Link>
             </div>
         <h1 className='text-5xl center px-4 py-2'>
-            開発途中....!!!!!!
+            ガチャの画面が出てくるイメージ
         </h1>
     </main>
    )
