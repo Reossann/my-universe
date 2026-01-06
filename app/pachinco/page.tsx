@@ -174,7 +174,7 @@ export default function P(){
 
             {/* レート設定セクション */}
             <div className="mb-8">
-                <p className="mb-2 font-bold text-yellow-300">1回転のコスト</p>
+                <p className="mb-2 font-bold text-yellow-300">1回転の料金</p>
                 <div className="flex justify-between gap-2">
                      <button 
                         onClick={() => setCostPerSpin(50)}
