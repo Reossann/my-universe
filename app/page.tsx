@@ -7,6 +7,7 @@ const apps = [
 {id: "pachinco", name: "パチンコ確率機", path: "/pachinco", description: "パチンコ確率アプリ", color:"red"},
 {id: "SG", name: "ソシャゲの面白いところだけを集めたい", path: "/sg", description: "ソシャゲ濃縮アプリ", color:"green"},
 {id: "VS", name: "ヴァンサバみたいなの作りたい", path: "/vs", description: "ヴァンパイアサバイバーもどき", color:"purple"},
+{id: "Timer", name: "便利機能搭載タイマー", path: "/timer", description: "一回では止まらないタイマー", color:"lightblue"},
 ]
 
 
