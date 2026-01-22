@@ -1,8 +1,7 @@
 "use client";
 
 import Link from 'next/link'; // 忘れずに！
-import { useState } from 'react';
-import { useRouter } from 'next/navigation'; // ← 1. 追加！
+
 
 
 export default function P(){
