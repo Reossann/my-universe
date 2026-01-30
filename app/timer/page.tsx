@@ -13,6 +13,8 @@ export default function P(){
             </div>
         <h1 className='text-5xl center px-4 py-2'>
             一回目のタイマーをもっておく。二回押されたらそのタイマーの値で止まる
+
+            ばいぶこーでぃんぐよてい
         </h1>
     </main>
    )
