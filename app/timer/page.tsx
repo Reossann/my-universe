@@ -1,7 +1,7 @@
 "use client";
 
-import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function P() {
   // タイマーの状態管理
@@ -19,6 +19,22 @@ export default function P() {
     }
     return () => clearInterval(interval);
   }, [isRunning]);
+
+  // ★ 新規追加: 1回目の記録後、3秒経過したら「押してなかったこと」にするロジック
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    // firstLapが記録されていて、かつタイマーが動いている場合のみカウント開始
+    if (firstLap !== null && isRunning) {
+      timeoutId = setTimeout(() => {
+        setFirstLap(null); // 3秒後にリセット
+      }, 3000);
+    }
+
+    // 3秒以内に2回目が押されて停止(isRunningがfalse)した場合や、
+    // 再レンダリング時にはタイマーをクリアして、勝手に消えるのを防ぐ
+    return () => clearTimeout(timeoutId);
+  }, [firstLap, isRunning]);
 
   // ボタンを押した時の処理
   const handleAction = () => {
@@ -44,25 +60,28 @@ export default function P() {
     const minutes = Math.floor(ms / 60000);
     const seconds = Math.floor((ms % 60000) / 1000);
     const milliseconds = Math.floor((ms % 1000) / 10);
-    return `${minutes.toString().padStart(2, '0')}:${seconds
+    return `${minutes.toString().padStart(2, "0")}:${seconds
       .toString()
-      .padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
+      .padStart(2, "0")}.${milliseconds.toString().padStart(2, "0")}`;
   };
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gray-50 text-gray-800">
       <div className="absolute top-8 left-8">
-        <Link href="/" className="text-blue-500 hover:underline text-2xl font-bold">
+        <Link
+          href="/"
+          className="text-blue-500 hover:underline text-2xl font-bold"
+        >
           ← ホームに戻る
         </Link>
       </div>
 
       <div className="text-center space-y-8">
-        <h1 className='text-3xl md:text-5xl font-bold px-4 py-2 mb-8'>
+        <h1 className="text-3xl md:text-5xl font-bold px-4 py-2 mb-8">
           バイブスコーディング予定表
           <br />
           <span className="text-lg font-normal text-gray-500 block mt-2">
-            （1回目でキープ、2回目でストップ！）
+            （1回目でキープ、2回目でストップ！※ただし3秒以内）
           </span>
         </h1>
 
@@ -72,7 +91,9 @@ export default function P() {
         </div>
 
         {/* 1回目のタイムを表示するエリア */}
-        <div className={`h-16 text-2xl font-mono transition-all duration-300 ${firstLap ? 'opacity-100' : 'opacity-0'}`}>
+        <div
+          className={`h-16 text-2xl font-mono transition-all duration-300 ${firstLap ? "opacity-100" : "opacity-0"}`}
+        >
           {firstLap ? (
             <span className="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg border border-yellow-300">
               1st KEEP: {formatTime(firstLap)}
@@ -87,10 +108,10 @@ export default function P() {
           onClick={handleAction}
           className={`
             px-12 py-6 rounded-full text-2xl font-bold text-white transition-all shadow-lg hover:scale-105 active:scale-95
-            ${!isRunning && time === 0 ? 'bg-green-500 hover:bg-green-600' : ''}
-            ${isRunning && firstLap === null ? 'bg-orange-500 hover:bg-orange-600' : ''}
-            ${isRunning && firstLap !== null ? 'bg-red-500 hover:bg-red-600' : ''}
-            ${!isRunning && time > 0 ? 'bg-gray-500 hover:bg-gray-600' : ''}
+            ${!isRunning && time === 0 ? "bg-green-500 hover:bg-green-600" : ""}
+            ${isRunning && firstLap === null ? "bg-orange-500 hover:bg-orange-600" : ""}
+            ${isRunning && firstLap !== null ? "bg-red-500 hover:bg-red-600" : ""}
+            ${!isRunning && time > 0 ? "bg-gray-500 hover:bg-gray-600" : ""}
           `}
         >
           {!isRunning && time === 0 && "START !"}
@@ -102,9 +123,15 @@ export default function P() {
         {/* 状態の説明 */}
         <p className="text-gray-400 mt-4 text-sm">
           {!isRunning && time === 0 && "ボタンを押してスタートしてください"}
-          {isRunning && firstLap === null && "今押すと、現在のタイムを一時記録します（止まりません）"}
-          {isRunning && firstLap !== null && "もう一度押すと、タイマーが完全に止まります"}
-          {!isRunning && time > 0 && "お疲れ様でした！もう一度押すとリセットされます"}
+          {isRunning &&
+            firstLap === null &&
+            "今押すと、現在のタイムを一時記録します（止まりません）"}
+          {isRunning &&
+            firstLap !== null &&
+            "3秒以内にもう一度押すと、タイマーが完全に止まります"}
+          {!isRunning &&
+            time > 0 &&
+            "お疲れ様でした！もう一度押すとリセットされます"}
         </p>
       </div>
     </main>
