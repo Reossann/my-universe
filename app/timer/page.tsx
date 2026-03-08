@@ -78,7 +78,7 @@ export default function P() {
 
       <div className="text-center space-y-8">
         <h1 className="text-3xl md:text-5xl font-bold px-4 py-2 mb-8">
-          バイブスコーディング予定表
+          一度のミスなら問題ないタイマー
           <br />
           <span className="text-lg font-normal text-gray-500 block mt-2">
             （1回目でキープ、2回目でストップ！※ただし3秒以内）
