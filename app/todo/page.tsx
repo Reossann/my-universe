@@ -1,10 +1,11 @@
 // app/todo/page.tsx
-import { prisma } from '@/lib/prisma';
-import TodoUI from './ui';
+import { prisma } from "@/lib/prisma";
+import TodoUI from "./ui";
+
+export const dynamic = "force-dynamic";
 
 // asyncをつける（待つからね！）
 export default async function TodoPage() {
-  
   // DBからデータを取るのを「待つ（await）」
   const todos = await prisma.todo.findMany();
 
