@@ -1,19 +1,29 @@
-"use client";
+import Game from "./components/Game";
 
-import Link from 'next/link'; // 忘れずに！
+export default function VSPage() {
+  return (
+    <main
+      style={{
+        minHeight: "100vh",
+        padding: "24px",
+        background: "#101820",
+      }}
+    >
+      <h1 style={{ color: "white" }}>My Survivor Game</h1>
 
+      <p style={{ color: "white" }}>WASD または矢印キーで移動</p>
 
-
-export default function P(){
-   return( <main>
-        <div className="mb-8">
-                <Link href="/" className="text-blue-500 hover:underline text-2xl">
-          ← ホームに戻る
-                </Link>
-            </div>
-        <h1 className='text-5xl center px-4 py-2'>
-            Reactの3D使うかな？
-        </h1>
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "800px",
+          aspectRatio: "4 / 3",
+          marginTop: "20px",
+          border: "2px solid #555",
+        }}
+      >
+        <Game />
+      </div>
     </main>
-   )
+  );
 }
