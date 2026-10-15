@@ -12,6 +12,7 @@ export default function VSPage() {
       <h1 style={{ color: "white" }}>My Survivor Game</h1>
 
       <p style={{ color: "white" }}>WASD または矢印キーで移動</p>
+      <p style={{ color: "white" }}>剣は向いている方向へ自動攻撃します</p>
 
       <div
         style={{

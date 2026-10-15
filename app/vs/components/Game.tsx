@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { GAME_HEIGHT, GAME_WIDTH } from "../game/config/gameConfig";
 
 export default function Game() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -19,8 +20,8 @@ export default function Game() {
       // ゲームの設定
       game = new Phaser.Game({
         type: Phaser.AUTO,
-        width: 800,
-        height: 600,
+        width: GAME_WIDTH,
+        height: GAME_HEIGHT,
         parent: containerRef.current,
         backgroundColor: "#18251e",
 
